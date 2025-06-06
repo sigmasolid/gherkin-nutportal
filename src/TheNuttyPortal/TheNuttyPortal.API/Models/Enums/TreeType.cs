@@ -2,9 +2,8 @@
 
 public enum TreeType
 {
-    Oak,
-    Pine,
-    Chestnut,
-    Walnut,
-    Birch
+    Oak = 1,
+    Pine = 2,
+    Chestnut = 3,
+    Walnut = 4
 }

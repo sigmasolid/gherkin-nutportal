@@ -1,6 +1,10 @@
-@TheNuttyPortal.API_HostAddress = http://localhost:5135
+POST http://localhost:5135/api/Tree/update-tree/
+Content-Type: application/json
 
-GET {{TheNuttyPortal.API_HostAddress}}/weatherforecast/
-Accept: application/json
+{
+  "treeName": "tree-123",
+  "treeType": 2,
+  "nutCount": 11
+}
 
 ###
