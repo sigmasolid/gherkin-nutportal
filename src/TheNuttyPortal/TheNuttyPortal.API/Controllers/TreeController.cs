@@ -12,7 +12,7 @@ public class TreeController : ControllerBase
     private static readonly Dictionary<string, Tree> _forest = new();
 
     [HttpPost("update-tree")]
-    public IActionResult UpdateTree([FromBody] UpdateTreeRequest request)
+    public ActionResult<Tree> UpdateTree([FromBody] UpdateTreeRequest request)
     {
         if (string.IsNullOrWhiteSpace(request.TreeName) || request.NutCount < 0)
         {
@@ -56,7 +56,7 @@ public class TreeController : ControllerBase
     }
 
     [HttpGet("{treeName}")]
-    public IActionResult GetTree(string treeName)
+    public ActionResult<Tree> GetTree(string treeName)
     {
         var key = treeName.ToLowerInvariant();
 
