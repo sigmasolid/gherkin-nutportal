@@ -7,4 +7,5 @@ public class UpdateTreeRequest
     public string TreeName { get; set; } = string.Empty;
     public TreeType TreeType { get; set; }
     public int NutCount { get; set; }
+    public string Ripeness { get; set; } = string.Empty;
 }

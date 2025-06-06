@@ -4,7 +4,8 @@ Content-Type: application/json
 {
   "treeName": "tree-123",
   "treeType": 2,
-  "nutCount": 11
+  "nutCount": 11,
+  "ripeness": "ripe"
 }
 
 ###
