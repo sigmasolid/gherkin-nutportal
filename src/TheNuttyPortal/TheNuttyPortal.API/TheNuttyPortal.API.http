@@ -1,0 +1,6 @@
+@TheNuttyPortal.API_HostAddress = http://localhost:5135
+
+GET {{TheNuttyPortal.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
