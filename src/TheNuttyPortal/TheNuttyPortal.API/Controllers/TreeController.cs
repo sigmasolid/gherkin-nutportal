@@ -19,23 +19,40 @@ public class TreeController : ControllerBase
             return BadRequest("Invalid request");
         }
 
+        var key = ProcessUpdateTreeRequest(request);
+
+        return Ok(_forest[key]);
+    }
+
+    private static string ProcessUpdateTreeRequest(UpdateTreeRequest request)
+    {
         var key = request.TreeName.ToLowerInvariant();
 
         if (_forest.ContainsKey(key))
         {
-            _forest[key].NutCount = request.NutCount;
+            UpdateNutCount(request, key);
         }
         else
         {
-            _forest[key] = new Tree
-            {
-                Name = request.TreeName,
-                Type = request.TreeType,
-                NutCount = request.NutCount
-            };
+            CreateNewTree(request, key);
         }
 
-        return Ok(_forest[key]);
+        return key;
+    }
+
+    private static void CreateNewTree(UpdateTreeRequest request, string key)
+    {
+        _forest[key] = new Tree
+        {
+            Name = request.TreeName,
+            Type = request.TreeType,
+            NutCount = request.NutCount
+        };
+    }
+
+    private static void UpdateNutCount(UpdateTreeRequest request, string key)
+    {
+        _forest[key].NutCount = request.NutCount;
     }
 
     [HttpGet("{treeName}")]
