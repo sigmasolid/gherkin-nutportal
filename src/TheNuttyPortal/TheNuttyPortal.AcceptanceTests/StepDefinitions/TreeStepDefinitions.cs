@@ -11,6 +11,7 @@ public class TreeStepDefinitions
 {
     private TreeController _treeController = new ();
     private Tree _tree;
+    private int? _responseHttpCode;
     
     [Given("the forest has the following trees:")]
     public void GivenTheForestHasTheFollowingTrees(Table table)
@@ -55,5 +56,25 @@ public class TreeStepDefinitions
         Assert.Equal(treeName, _tree.Name);
         Assert.Equal(expectedNutCount, _tree.NutCount);
         Assert.Equal(expectedRipeness, _tree.Ripeness);
+    }
+
+    [Given("the forest has no trees")]
+    public void GivenTheForestHasNoTrees()
+    {
+        
+    }
+
+    [When("I request information about a tree with the name {string}")]
+    public void WhenIRequestInformationAboutATreeWithTheName(string treeName)
+    {
+        var result = _treeController.GetTree(treeName);
+        var notFoundResult = result.Result as NotFoundObjectResult;
+        _responseHttpCode = notFoundResult?.StatusCode;
+    }
+
+    [Then("the response should indicate that the tree does not exist")]
+    public void ThenTheResponseShouldIndicateThatTheTreeDoesNotExist()
+    {
+        Assert.Equal(404, _responseHttpCode);
     }
 }
