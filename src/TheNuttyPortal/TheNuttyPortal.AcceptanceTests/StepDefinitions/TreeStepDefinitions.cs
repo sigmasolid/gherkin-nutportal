@@ -1,0 +1,59 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Reqnroll;
+using TheNuttyPortal.API.Controllers;
+using TheNuttyPortal.API.Controllers.Requests;
+using TheNuttyPortal.API.Models;
+
+namespace TheNuttyPortal.AcceptanceTests.StepDefinitions;
+
+[Binding]
+public class TreeStepDefinitions
+{
+    private TreeController _treeController = new ();
+    private Tree _tree;
+    
+    [Given("the forest has the following trees:")]
+    public void GivenTheForestHasTheFollowingTrees(Table table)
+    {
+        //Convert table to a list of trees
+        var trees = table.CreateSet<UpdateTreeRequest>().ToList();
+        var treeController = new TreeController();
+        trees.ForEach(tree => treeController.UpdateTree(tree));
+        ScenarioContext.StepIsPending();
+    }
+
+    [Given("the forest has an {string} tree with the name {string} and {int} {string} nuts")]
+    public void GivenTheForestHasAnTreeWithTheNameAndNuts(string treeType, string treeName, int nutCount, string ripeness)
+    {
+        // Create a tree with the specified properties
+        var request = new UpdateTreeRequest
+        {
+            TreeType = treeType,
+            TreeName = treeName,
+            NutCount = nutCount,
+            Ripeness = ripeness
+        };
+        var treeController = new TreeController();
+        treeController.UpdateTree(request);
+    }
+
+    [When("I request information about the tree with the name {string}")]
+    public void WhenIRequestInformationAboutTheTreeWithTheName(string treeName)
+    {
+        var result = _treeController.GetTree(treeName);
+        if (result.Result is OkObjectResult okObjectResult)
+        {
+            _tree = okObjectResult.Value as Tree;
+        }
+    }
+
+    [Then("the response should include the tree ID {string} with {int} {string} nuts")]
+    public void ThenTheResponseShouldIncludeTheTreeIdWithNuts(string treeName, int expectedNutCount, string expectedRipeness)
+    {
+        // Check if the tree exists and has the expected properties
+        Assert.NotNull(_tree);
+        Assert.Equal(treeName, _tree.Name);
+        Assert.Equal(expectedNutCount, _tree.NutCount);
+        Assert.Equal(expectedRipeness, _tree.Ripeness);
+    }
+}
