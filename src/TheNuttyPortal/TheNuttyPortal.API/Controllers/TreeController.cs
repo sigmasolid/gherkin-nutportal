@@ -46,7 +46,8 @@ public class TreeController : ControllerBase
         {
             Name = request.TreeName,
             Type = request.TreeType,
-            NutCount = request.NutCount
+            NutCount = request.NutCount,
+            Ripeness = request.Ripeness
         };
     }
 
