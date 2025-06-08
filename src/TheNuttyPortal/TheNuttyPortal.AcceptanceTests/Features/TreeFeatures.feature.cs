@@ -128,14 +128,14 @@ namespace TheNuttyPortal.AcceptanceTests.Features
             await this.TestTearDownAsync();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="If I request information about a tree the correct tree is returned")]
+        [Xunit.SkippableFactAttribute(DisplayName="01 - If I request information about a tree the correct tree is returned")]
         [Xunit.TraitAttribute("FeatureTitle", "Nutty API features")]
-        [Xunit.TraitAttribute("Description", "If I request information about a tree the correct tree is returned")]
-        public async global::System.Threading.Tasks.Task IfIRequestInformationAboutATreeTheCorrectTreeIsReturned()
+        [Xunit.TraitAttribute("Description", "01 - If I request information about a tree the correct tree is returned")]
+        public async global::System.Threading.Tasks.Task _01_IfIRequestInformationAboutATreeTheCorrectTreeIsReturned()
         {
             string[] tagsOfScenario = ((string[])(null));
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("If I request information about a tree the correct tree is returned", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("01 - If I request information about a tree the correct tree is returned", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 6
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -159,14 +159,14 @@ namespace TheNuttyPortal.AcceptanceTests.Features
             await this.ScenarioCleanupAsync();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="If I request information about a tree that does not exist")]
+        [Xunit.SkippableFactAttribute(DisplayName="02 - If I request information about a tree that does not exist")]
         [Xunit.TraitAttribute("FeatureTitle", "Nutty API features")]
-        [Xunit.TraitAttribute("Description", "If I request information about a tree that does not exist")]
-        public async global::System.Threading.Tasks.Task IfIRequestInformationAboutATreeThatDoesNotExist()
+        [Xunit.TraitAttribute("Description", "02 - If I request information about a tree that does not exist")]
+        public async global::System.Threading.Tasks.Task _02_IfIRequestInformationAboutATreeThatDoesNotExist()
         {
             string[] tagsOfScenario = ((string[])(null));
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("If I request information about a tree that does not exist", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("02 - If I request information about a tree that does not exist", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 11
     this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -185,130 +185,6 @@ namespace TheNuttyPortal.AcceptanceTests.Features
 #line hidden
 #line 14
         await testRunner.ThenAsync("the response should indicate that the tree does not exist", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-            }
-            await this.ScenarioCleanupAsync();
-        }
-        
-        [Xunit.SkippableFactAttribute(DisplayName="Retrieve the tree with the most ripe nuts")]
-        [Xunit.TraitAttribute("FeatureTitle", "Nutty API features")]
-        [Xunit.TraitAttribute("Description", "Retrieve the tree with the most ripe nuts")]
-        public async global::System.Threading.Tasks.Task RetrieveTheTreeWithTheMostRipeNuts()
-        {
-            string[] tagsOfScenario = ((string[])(null));
-            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Retrieve the tree with the most ripe nuts", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 16
-    this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                await this.ScenarioStartAsync();
-                global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
-                            "Tree ID",
-                            "Nut Type",
-                            "Ripeness",
-                            "Count"});
-                table1.AddRow(new string[] {
-                            "hazelnut-1",
-                            "hazelnut",
-                            "ripe",
-                            "12"});
-                table1.AddRow(new string[] {
-                            "oak-1",
-                            "acorn",
-                            "ripe",
-                            "8"});
-                table1.AddRow(new string[] {
-                            "chestnut-1",
-                            "chestnut",
-                            "ripe",
-                            "25"});
-                table1.AddRow(new string[] {
-                            "hazelnut-2",
-                            "hazelnut",
-                            "green",
-                            "30"});
-#line 17
-        await testRunner.GivenAsync("the forest has the following trees:", ((string)(null)), table1, "Given ");
-#line hidden
-#line 23
-        await testRunner.WhenAsync("I query the API for the tree with the most ripe nuts", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 24
-        await testRunner.ThenAsync("the response should include tree ID \"oak-3\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-#line 25
-        await testRunner.AndAsync("the nut type should be \"chestnut\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-#line hidden
-#line 26
-        await testRunner.AndAsync("the count should be 25", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-#line hidden
-            }
-            await this.ScenarioCleanupAsync();
-        }
-        
-        [Xunit.SkippableFactAttribute(DisplayName="Retrieve the tree with the most ripe chestnuts")]
-        [Xunit.TraitAttribute("FeatureTitle", "Nutty API features")]
-        [Xunit.TraitAttribute("Description", "Retrieve the tree with the most ripe chestnuts")]
-        public async global::System.Threading.Tasks.Task RetrieveTheTreeWithTheMostRipeChestnuts()
-        {
-            string[] tagsOfScenario = ((string[])(null));
-            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Retrieve the tree with the most ripe chestnuts", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 28
-    this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                await this.ScenarioStartAsync();
-                global::Reqnroll.Table table2 = new global::Reqnroll.Table(new string[] {
-                            "Tree ID",
-                            "Nut Type",
-                            "Ripeness",
-                            "Count"});
-                table2.AddRow(new string[] {
-                            "hazelnut-1",
-                            "hazelnut",
-                            "ripe",
-                            "12"});
-                table2.AddRow(new string[] {
-                            "oak-1",
-                            "acorn",
-                            "ripe",
-                            "8"});
-                table2.AddRow(new string[] {
-                            "chestnut-1",
-                            "chestnut",
-                            "ripe",
-                            "25"});
-                table2.AddRow(new string[] {
-                            "hazelnut-2",
-                            "hazelnut",
-                            "green",
-                            "30"});
-#line 29
-        await testRunner.GivenAsync("the forest has the following trees:", ((string)(null)), table2, "Given ");
-#line hidden
-#line 35
-        await testRunner.WhenAsync("I query the API for the tree with the most ripe nuts of type \"chestnut\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 36
-        await testRunner.ThenAsync("the response should include tree ID \"chestnut-1\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
-#line hidden
-#line 37
-        await testRunner.AndAsync("the nut type should be \"chestnut\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-#line hidden
-#line 38
-        await testRunner.AndAsync("the count should be 25", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

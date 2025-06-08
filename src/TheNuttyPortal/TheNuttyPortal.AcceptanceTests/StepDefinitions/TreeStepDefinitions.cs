@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net.Http.Json;
+using Microsoft.AspNetCore.Mvc;
 using Reqnroll;
 using TheNuttyPortal.API.Controllers;
 using TheNuttyPortal.API.Controllers.Requests;
@@ -7,8 +8,9 @@ using TheNuttyPortal.API.Models;
 namespace TheNuttyPortal.AcceptanceTests.StepDefinitions;
 
 [Binding]
-public class TreeStepDefinitions
+public class TreeStepDefinitions()
 {
+    private readonly HttpClient httpClient = new (){BaseAddress = new Uri("http://localhost:5135")};
     private TreeController _treeController = new ();
     private Tree _tree;
     private int? _responseHttpCode;
@@ -18,9 +20,7 @@ public class TreeStepDefinitions
     {
         //Convert table to a list of trees
         var trees = table.CreateSet<UpdateTreeRequest>().ToList();
-        var treeController = new TreeController();
-        trees.ForEach(tree => treeController.UpdateTree(tree));
-        ScenarioContext.StepIsPending();
+        trees.ForEach(tree => httpClient.PostAsJsonAsync("api/tree/update-tree", tree));
     }
 
     [Given("the forest has an {string} tree with the name {string} and {int} {string} nuts")]
