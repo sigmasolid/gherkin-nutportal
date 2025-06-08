@@ -21,6 +21,6 @@ So that I can optimize my nut-gathering efficiency
           | chestnut-1 | chestnut | ripe     | 25    |
           | hazelnut-2 | hazelnut | green    | 30    |
         When I query the API for the tree with the most ripe nuts of type "chestnut"
-        Then the response should include tree ID "chestnut-1"
+        Then the response should return the tree "chestnut-1"
         And the nut type should be "chestnut"
         And the count should be 25
