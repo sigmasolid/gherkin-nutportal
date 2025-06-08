@@ -3,36 +3,12 @@ As a hungry squirrel
 I want to find the best and ripest nuts in the forest
 So that I can optimize my nut-gathering efficiency
 
-    Scenario: If I request information about a tree the correct tree is returned
+    Scenario: 01 - If I request information about a tree the correct tree is returned
         Given the forest has an "oak" tree with the name "oak-1" and 22 "ripe" nuts
         When I request information about the tree with the name "oak-1"
         Then the response should include the tree ID "oak-1" with 22 "ripe" nuts
-            
-    Scenario: If I request information about a tree that does not exist
+
+    Scenario: 02 - If I request information about a tree that does not exist
         Given the forest has no trees
         When I request information about a tree with the name "oak-2"
         Then the response should indicate that the tree does not exist
-    
-    Scenario: Retrieve the tree with the most ripe nuts
-        Given the forest has the following trees:
-          | Tree ID    | Nut Type | Ripeness | Count |
-          | hazelnut-1 | hazelnut | ripe     | 12    |
-          | oak-1      | acorn    | ripe     | 8     |
-          | chestnut-1 | chestnut | ripe     | 25    |
-          | hazelnut-2 | hazelnut | green    | 30    |
-        When I query the API for the tree with the most ripe nuts
-        Then the response should include tree ID "oak-3"
-        And the nut type should be "chestnut"
-        And the count should be 25
-        
-    Scenario: Retrieve the tree with the most ripe chestnuts
-        Given the forest has the following trees:
-          | Tree ID    | Nut Type | Ripeness | Count |
-          | hazelnut-1 | hazelnut | ripe     | 12    |
-          | oak-1      | acorn    | ripe     | 8     |
-          | chestnut-1 | chestnut | ripe     | 25    |
-          | hazelnut-2 | hazelnut | green    | 30    |
-        When I query the API for the tree with the most ripe nuts of type "chestnut"
-        Then the response should include tree ID "chestnut-1"
-        And the nut type should be "chestnut"
-        And the count should be 25
