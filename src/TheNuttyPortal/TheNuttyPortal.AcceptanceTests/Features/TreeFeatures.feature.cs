@@ -190,6 +190,73 @@ namespace TheNuttyPortal.AcceptanceTests.Features
             await this.ScenarioCleanupAsync();
         }
         
+        [Xunit.SkippableFactAttribute(DisplayName="03 - Retrieve the tree with the most ripe chestnuts")]
+        [Xunit.TraitAttribute("FeatureTitle", "Nutty API features")]
+        [Xunit.TraitAttribute("Description", "03 - Retrieve the tree with the most ripe chestnuts")]
+        public async global::System.Threading.Tasks.Task _03_RetrieveTheTreeWithTheMostRipeChestnuts()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("03 - Retrieve the tree with the most ripe chestnuts", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 16
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+                global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
+                            "TreeName",
+                            "TreeType",
+                            "Nut Type",
+                            "Ripeness",
+                            "NutCount"});
+                table1.AddRow(new string[] {
+                            "hazelnut-1",
+                            "hazelnut",
+                            "hazelnut",
+                            "ripe",
+                            "12"});
+                table1.AddRow(new string[] {
+                            "oak-1",
+                            "oak",
+                            "acorn",
+                            "ripe",
+                            "8"});
+                table1.AddRow(new string[] {
+                            "chestnut-1",
+                            "chestnut",
+                            "chestnut",
+                            "ripe",
+                            "25"});
+                table1.AddRow(new string[] {
+                            "hazelnut-2",
+                            "hazelnut",
+                            "hazelnut",
+                            "green",
+                            "30"});
+#line 17
+        await testRunner.GivenAsync("the forest has the following trees:", ((string)(null)), table1, "Given ");
+#line hidden
+#line 23
+        await testRunner.WhenAsync("I query the API for the tree with the most ripe nuts of type \"chestnut\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 24
+        await testRunner.ThenAsync("the response should return the tree \"chestnut-1\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 25
+        await testRunner.AndAsync("the tree type should be \"chestnut\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 26
+        await testRunner.AndAsync("the nut count should be 25", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
         [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : object, Xunit.IAsyncLifetime

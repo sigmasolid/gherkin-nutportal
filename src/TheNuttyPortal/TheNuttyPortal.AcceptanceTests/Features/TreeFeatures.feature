@@ -12,3 +12,15 @@ So that I can optimize my nut-gathering efficiency
         Given the forest has no trees
         When I request information about a tree with the name "oak-2"
         Then the response should indicate that the tree does not exist
+
+    Scenario: 03 - Retrieve the tree with the most ripe chestnuts
+        Given the forest has the following trees:
+          | TreeName   | TreeType | Nut Type | Ripeness | NutCount |
+          | hazelnut-1 | hazelnut | hazelnut | ripe     | 12    |
+          | oak-1      | oak      | acorn    | ripe     | 8     |
+          | chestnut-1 | chestnut | chestnut | ripe     | 25    |
+          | hazelnut-2 | hazelnut | hazelnut | green    | 30    |
+        When I query the API for the tree with the most ripe nuts of type "chestnut"
+        Then the response should return the tree "chestnut-1"
+        And the tree type should be "chestnut"
+        And the nut count should be 25

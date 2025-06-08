@@ -65,4 +65,20 @@ public class TreeController : ControllerBase
             ? Ok(tree)
             : NotFound($"Tree '{treeName}' not found.");
     }
+    
+    [HttpGet("treetype/{treeType}")]
+    public ActionResult<Tree> GetTreeByTreeType(string treeType)
+    {
+        var tree = _forest.Values
+            .Where(t => t.TreeType.Equals(treeType, StringComparison.OrdinalIgnoreCase))
+            .OrderBy(t => t.NutCount)
+            .FirstOrDefault();
+        
+        if (tree is null)
+        {
+            return NotFound($"No '{treeType}' trees found.");
+        }
+
+        return Ok(tree);
+    }
 }
