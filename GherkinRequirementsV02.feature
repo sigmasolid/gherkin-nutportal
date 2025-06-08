@@ -23,4 +23,4 @@ So that I can optimize my nut-gathering efficiency
         When I query the API for the tree with the most ripe nuts of type "chestnut"
         Then the response should return the tree "chestnut-1"
         And the tree type should be "chestnut"
-        And the count should be 25
+        And the nut count should be 25
