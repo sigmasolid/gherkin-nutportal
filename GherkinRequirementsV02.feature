@@ -1,4 +1,4 @@
-Feature: Nutty API features
+Feature: Find the best nuts in the forest
 As a hungry squirrel
 I want to find the best and ripest nuts in the forest
 So that I can optimize my nut-gathering efficiency
