@@ -8,9 +8,9 @@ So that I can optimize my nut-gathering efficiency
         When I request information about the tree with the name "oak-1"
         Then the response should include the tree ID "oak-1" with 22 "ripe" nuts
 
-    Scenario: 03 - Retrieve the tree with the most ripe chestnuts
+    Scenario: 02 - Retrieve the tree with the most ripe chestnuts
         Given the forest has the following trees:
-          | TreeName   | TreeType | Nut Type | Ripeness | NutCount |
+          | TreeName   | TreeType | Nut Type | Ripeness | NumberOfNuts |
           | hazelnut-1 | hazelnut | hazelnut | ripe     | 12       |
           | oak-1      | oak      | acorn    | ripe     | 8        |
           | chestnut-1 | chestnut | chestnut | ripe     | 25       |
