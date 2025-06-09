@@ -46,14 +46,14 @@ public class TreeController : ControllerBase
         {
             Name = request.TreeName,
             TreeType = request.TreeType,
-            NutCount = request.NumberOfNuts,
+            NumberOfNuts = request.NumberOfNuts,
             Ripeness = request.Ripeness
         };
     }
 
     private static void UpdateNutCount(UpdateTreeRequest request, string key)
     {
-        _forest[key].NutCount = request.NumberOfNuts;
+        _forest[key].NumberOfNuts = request.NumberOfNuts;
     }
 
     [HttpGet("{treeName}")]
