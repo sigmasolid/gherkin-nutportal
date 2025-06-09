@@ -10,11 +10,11 @@ So that I can optimize my nut-gathering efficiency
 
     Scenario: 02 - Retrieve the tree with the most ripe chestnuts
         Given the forest has the following trees:
-          | TreeName   | TreeType | Nut Type | Ripeness | NutCount |
-          | hazelnut-1 | hazelnut | hazelnut | ripe     | 12       |
-          | oak-1      | oak      | acorn    | ripe     | 8        |
-          | chestnut-1 | chestnut | chestnut | ripe     | 25       |
-          | hazelnut-2 | hazelnut | hazelnut | green    | 30       |
+          | TreeName   | TreeType | Ripeness | NumberOfNuts |
+          | hazelnut-1 | hazelnut | ripe     | 12           |
+          | oak-1      | oak      | ripe     | 8            |
+          | chestnut-1 | chestnut | ripe     | 25           |
+          | hazelnut-2 | hazelnut | green    | 30           |
         When I query the API for the tree with the most ripe nuts of type "chestnut"
         Then the response should return the tree "chestnut-1"
         And the nut count should be 25

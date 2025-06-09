@@ -14,7 +14,7 @@ public class TreeController : ControllerBase
     [HttpPost("update-tree")]
     public ActionResult<Tree> UpdateTree([FromBody] UpdateTreeRequest request)
     {
-        if (string.IsNullOrWhiteSpace(request.TreeName) || request.NutCount < 0)
+        if (string.IsNullOrWhiteSpace(request.TreeName) || request.NumberOfNuts < 0)
         {
             return BadRequest("Invalid request");
         }
@@ -46,14 +46,14 @@ public class TreeController : ControllerBase
         {
             Name = request.TreeName,
             TreeType = request.TreeType,
-            NutCount = request.NutCount,
+            NutCount = request.NumberOfNuts,
             Ripeness = request.Ripeness
         };
     }
 
     private static void UpdateNutCount(UpdateTreeRequest request, string key)
     {
-        _forest[key].NutCount = request.NutCount;
+        _forest[key].NutCount = request.NumberOfNuts;
     }
 
     [HttpGet("{treeName}")]
