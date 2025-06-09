@@ -5,7 +5,7 @@ using TheNuttyPortal.API.Controllers;
 using TheNuttyPortal.API.Controllers.Requests;
 using TheNuttyPortal.API.Models;
 
-namespace StepDefinitions;
+namespace TheNuttyPortal.AppcetanceTests.StepDefinitions;
 
 [Binding]
 public class TreeStepDefinitions(TreeController treeController)
@@ -13,13 +13,13 @@ public class TreeStepDefinitions(TreeController treeController)
     private Tree? _tree;
     
     [Given("the forest has an {string} tree with the name {string} and {int} {string} nuts")]
-    public void GivenTheForestHasAnTreeWithTheNameAndNuts(string treeType, string treeName, int nutCount, string ripeness)
+    public void GivenTheForestHasAnTreeWithTheNameAndNuts(string treeType, string treeName, int numberOfNuts, string ripeness)
     {
         var treeRequest = new UpdateTreeRequest
         {
             TreeName = treeName,
             TreeType = treeType,
-            NutCount = nutCount,
+            NumberOfNuts = numberOfNuts,
             Ripeness = ripeness
         };
         var response = treeController.UpdateTree(treeRequest);
@@ -40,7 +40,7 @@ public class TreeStepDefinitions(TreeController treeController)
     }
 
     [Then("the response should include the tree ID {string} with {int} {string} nuts")]
-    public void ThenTheResponseShouldIncludeTheTreeIdWithNuts(string treeName, int nutCount, string ripeness)
+    public void ThenTheResponseShouldIncludeTheTreeIdWithNuts(string treeName, int numberOfNuts, string ripeness)
     {
         if (_tree == null)
         {
@@ -49,7 +49,7 @@ public class TreeStepDefinitions(TreeController treeController)
         }
 
         Assert.Equal(treeName, _tree.Name);
-        Assert.Equal(nutCount, _tree.NutCount);
+        Assert.Equal(numberOfNuts, _tree.NumberOfNuts);
         Assert.Equal(ripeness, _tree.Ripeness);
     }
 
@@ -87,8 +87,8 @@ public class TreeStepDefinitions(TreeController treeController)
     }
 
     [Then("the nut count should be {int}")]
-    public void ThenTheNutCountShouldBe(int nutCount)
+    public void ThenTheNumberOfNutsShouldBe(int numberOfNuts)
     {
-        Assert.Equal(nutCount, _tree?.NutCount);
+        Assert.Equal(numberOfNuts, _tree?.NumberOfNuts);
     }
 }

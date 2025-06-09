@@ -71,7 +71,7 @@ public class TreeController : ControllerBase
     {
         var mostRipeTree = _forest.Values
             .Where(t => t.TreeType.Equals(treeType, StringComparison.OrdinalIgnoreCase))
-            .OrderBy(t => t.NutCount)
+            .OrderBy(t => t.NumberOfNuts)
             .FirstOrDefault();
 
         if (mostRipeTree == null)
