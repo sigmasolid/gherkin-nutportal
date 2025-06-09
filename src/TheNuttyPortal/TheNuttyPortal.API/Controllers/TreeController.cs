@@ -65,4 +65,20 @@ public class TreeController : ControllerBase
             ? Ok(tree)
             : NotFound($"Tree '{treeName}' not found.");
     }
+
+    [HttpGet("most-ripe-nuts/{treeType}")]
+    public ActionResult<Tree> GetTreeWithMostRipeNuts(string treeType)
+    {
+        var mostRipeTree = _forest.Values
+            .Where(t => t.TreeType.Equals(treeType, StringComparison.OrdinalIgnoreCase))
+            .OrderBy(t => t.NutCount)
+            .FirstOrDefault();
+
+        if (mostRipeTree == null)
+        {
+            return NotFound($"No trees of type '{treeType}' found.");
+        }
+
+        return Ok(mostRipeTree);
+    }
 }
