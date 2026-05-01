@@ -55,3 +55,4 @@ TestResult.xml
 *.trx
 *.coverage
 *.coveragexml
+/src/TheNuttyPortal/TheNuttyPortal.AppcetanceTests/allure-report/

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://schemas.reqnroll.net/reqnroll-config-latest.json",
+  "plugins": [
+    {
+      "name": "Allure.ReqnrollPlugin",
+      "type": "Runtime"
+    }
+  ]
+}
+
+
