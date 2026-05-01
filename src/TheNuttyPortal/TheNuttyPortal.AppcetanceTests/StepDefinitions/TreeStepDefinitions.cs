@@ -1,5 +1,4 @@
-﻿using JetBrains.ReSharper.TestRunner.Abstractions.Extensions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Reqnroll;
 using TheNuttyPortal.API.Controllers;
 using TheNuttyPortal.API.Controllers.Requests;
@@ -57,7 +56,10 @@ public class TreeStepDefinitions(TreeController treeController)
     public void GivenTheForestHasTheFollowingTrees(Reqnroll.Table table)
     {
         var trees = table.CreateSet<UpdateTreeRequest>();
-        trees.ForEach(treeRequest => treeController.UpdateTree(treeRequest));
+        foreach (var treeRequest in trees)
+        {
+            treeController.UpdateTree(treeRequest);
+        }
     }
 
     [When("I query the API for the tree with the most ripe nuts of type {string}")]
