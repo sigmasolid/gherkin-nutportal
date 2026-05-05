@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net9.0</TargetFramework>
+        <TargetFramework>net10.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <IsPackable>false</IsPackable>
@@ -35,12 +35,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\TheNuttyPortal.API\TheNuttyPortal.API.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="JetBrains.ReSharper.TestRunner.Abstractions">
-        <HintPath>..\..\..\..\..\..\..\..\Program Files\JetBrains\JetBrains Rider 2024.3.3\lib\ReSharperHost\TestRunner\netcoreapp3.0\JetBrains.ReSharper.TestRunner.Abstractions.dll</HintPath>
-      </Reference>
     </ItemGroup>
 
 </Project>
