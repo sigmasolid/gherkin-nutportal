@@ -1,18 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Text;
+using System.Text.Json;
 using Reqnroll;
-using TheNuttyPortal.API.Controllers;
 using TheNuttyPortal.API.Controllers.Requests;
 using TheNuttyPortal.API.Models;
 
 namespace TheNuttyPortal.AppcetanceTests.StepDefinitions;
 
 [Binding]
-public class TreeStepDefinitions(TreeController treeController)
+public class TreeStepDefinitions
 {
+    private readonly HttpClient _httpClient;
     private Tree? _tree;
-    
+    private HttpResponseMessage? _lastResponse;
+
+    public TreeStepDefinitions(HttpClient httpClient)
+    {
+        _httpClient = httpClient;
+    }
+
     [Given("the forest has an {string} tree with the name {string} and {int} {string} nuts")]
-    public void GivenTheForestHasAnTreeWithTheNameAndNuts(string treeType, string treeName, int numberOfNuts, string ripeness)
+    public async Task GivenTheForestHasAnTreeWithTheNameAndNuts(string treeType, string treeName, int numberOfNuts, string ripeness)
     {
         var treeRequest = new UpdateTreeRequest
         {
@@ -21,16 +28,18 @@ public class TreeStepDefinitions(TreeController treeController)
             NumberOfNuts = numberOfNuts,
             Ripeness = ripeness
         };
-        var response = treeController.UpdateTree(treeRequest);
+        await UpdateTreeAsync(treeRequest);
     }
 
     [When("I request information about the tree with the name {string}")]
-    public void WhenIRequestInformationAboutTheTreeWithTheName(string treeName)
+    public async Task WhenIRequestInformationAboutTheTreeWithTheName(string treeName)
     {
-        var response = treeController.GetTree(treeName);
-        if(response.Result is OkObjectResult okResult)
+        var response = await _httpClient.GetAsync($"/api/tree/{treeName}");
+        _lastResponse = response;
+        if (response.IsSuccessStatusCode)
         {
-            _tree = okResult.Value as Tree;
+            var content = await response.Content.ReadAsStringAsync();
+            _tree = JsonSerializer.Deserialize<Tree>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
         else
         {
@@ -41,34 +50,31 @@ public class TreeStepDefinitions(TreeController treeController)
     [Then("the response should include the tree ID {string} with {int} {string} nuts")]
     public void ThenTheResponseShouldIncludeTheTreeIdWithNuts(string treeName, int numberOfNuts, string ripeness)
     {
-        if (_tree == null)
-        {
-            ScenarioContext.Current.Pending();
-            return;
-        }
-
+        Assert.NotNull(_tree);
         Assert.Equal(treeName, _tree.Name);
         Assert.Equal(numberOfNuts, _tree.NumberOfNuts);
         Assert.Equal(ripeness, _tree.Ripeness);
     }
 
     [Given("the forest has the following trees:")]
-    public void GivenTheForestHasTheFollowingTrees(Reqnroll.Table table)
+    public async Task GivenTheForestHasTheFollowingTrees(Reqnroll.Table table)
     {
         var trees = table.CreateSet<UpdateTreeRequest>();
         foreach (var treeRequest in trees)
         {
-            treeController.UpdateTree(treeRequest);
+            await UpdateTreeAsync(treeRequest);
         }
     }
 
     [When("I query the API for the tree with the most ripe nuts of type {string}")]
-    public void WhenIQueryTheApiForTheTreeWithTheMostRipeNutsOfType(string treeType)
+    public async Task WhenIQueryTheApiForTheTreeWithTheMostRipeNutsOfType(string treeType)
     {
-        var response = treeController.GetTreeWithMostRipeNuts(treeType);
-        if(response.Result is OkObjectResult okResult)
+        var response = await _httpClient.GetAsync($"/api/tree/most-ripe-nuts/{treeType}");
+        _lastResponse = response;
+        if (response.IsSuccessStatusCode)
         {
-            _tree = okResult.Value as Tree;
+            var content = await response.Content.ReadAsStringAsync();
+            _tree = JsonSerializer.Deserialize<Tree>(content, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
         }
         else
         {
@@ -79,18 +85,34 @@ public class TreeStepDefinitions(TreeController treeController)
     [Then("the response should return the tree {string}")]
     public void ThenTheResponseShouldReturnTheTree(string treeName)
     {
-        Assert.Equal(treeName, _tree?.Name);
+        Assert.NotNull(_tree);
+        Assert.Equal(treeName, _tree.Name);
     }
 
     [Then("the tree type should be {string}")]
     public void ThenTheTreeTypeShouldBe(string treeType)
     {
-        Assert.Equal(treeType, _tree?.TreeType);
+        Assert.NotNull(_tree);
+        Assert.Equal(treeType, _tree.TreeType);
     }
 
     [Then("the nut count should be {int}")]
     public void ThenTheNumberOfNutsShouldBe(int numberOfNuts)
     {
-        Assert.Equal(numberOfNuts, _tree?.NumberOfNuts);
+        Assert.NotNull(_tree);
+        Assert.Equal(numberOfNuts, _tree.NumberOfNuts);
+    }
+
+    private async Task UpdateTreeAsync(UpdateTreeRequest treeRequest)
+    {
+        var json = JsonSerializer.Serialize(treeRequest);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        var response = await _httpClient.PostAsync("/api/tree/update-tree", content);
+        _lastResponse = response;
+        if (!response.IsSuccessStatusCode)
+        {
+            var errorContent = await response.Content.ReadAsStringAsync();
+            throw new InvalidOperationException($"Failed to update tree: {response.StatusCode} - {errorContent}");
+        }
     }
 }
